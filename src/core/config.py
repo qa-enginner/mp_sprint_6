@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     # Настройки Redis
     redis_host: str = os.getenv("REDIS_HOST", "localhost")
     redis_port: int = int(os.getenv("REDIS_PORT", "6379"))
+    redis_db: int = int(os.getenv("REDIS_DB", "0"))
 
     # Настройки JWT
     secret_key: str = os.getenv("SECRET_KEY", "secret_key")

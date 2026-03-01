@@ -7,7 +7,7 @@ from redis.asyncio import Redis
 from api.v1 import auth
 from core import config
 from db import redis_db
-from db.postgres import create_database
+from db.postgres import create_database, wait_for_postgres
 
 
 @asynccontextmanager
@@ -30,6 +30,11 @@ async def lifespan(app: FastAPI):
         logger.info("✓ Successfully connected to Redis")
     except Exception as e:
         logger.error(f"✗ Failed to connect to Redis: {e}")
+
+    # Ожидаем доступности PostgreSQL
+    if not await wait_for_postgres():
+        logger.error("✗ PostgreSQL is not available. Exiting.")
+        raise Exception("PostgreSQL is not available")
 
     # Создаем таблицы в базе данных
     try:

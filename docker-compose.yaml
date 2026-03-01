@@ -1,13 +1,22 @@
-version: '3.8'
-
 services:
+    auth:
+      build: .
+      ports:
+        - "8000:8000"
+      depends_on:
+        - postgres
+        - redis
+      environment:
+        - POSTGRES_HOST=${POSTGRES_HOST}
+        - REDIS_HOST=${REDIS_HOST}
+        - REDIS_DB=${REDIS_DB}
 
     postgres:
       image: postgres:16
       environment:
-        - POSTGRES_DB=auth_db
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres  
+        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       ports:
         - "5432:5432"
 

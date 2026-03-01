@@ -1,9 +1,9 @@
 .venv
 .DS_Store
 .idea
-.env
 logs
 docs
 **/static/admin/*
 **/__pycache__/
 .pytest_cache
+requirements.tmp.txt
