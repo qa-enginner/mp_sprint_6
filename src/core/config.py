@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     redis_db: int = int(os.getenv("REDIS_DB", "0"))
 
     # Настройки JWT
-    secret_key: str = os.getenv("SECRET_KEY", "secret_key")
+    secret_key: str = os.getenv("SECRET_KEY", "a-string-secret-at-least-256-bits-long")
     algorithm: str = os.getenv("ALGORITHM", "HS256")
 
     class Config:

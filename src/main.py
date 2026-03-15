@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from redis.asyncio import Redis
 
-from api.v1 import auth
+from api.v1 import auth, users
 from core import config
 from db import redis_db
 from db.postgres import create_database, wait_for_postgres
@@ -71,11 +71,12 @@ app = FastAPI(
     version=config.settings.project_version,
     docs_url='/api/openapi',
     openapi_url='/api/openapi.json',
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 
-app.include_router(auth.router, prefix='/api/v1', tags=['Auth'])
+app.include_router(auth.router, prefix='/api/v1/auth', tags=['Auth'])
+app.include_router(users.router, prefix='/api/v1/users', tags=['Users'])
 
 
 if __name__ == "__main__":
